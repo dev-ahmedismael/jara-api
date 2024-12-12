@@ -19,7 +19,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::latest()->paginate(10);
+        $pages = Page::with('sections')->latest()->paginate(10);
         return response()->json($pages, 200);
     }
 
@@ -43,7 +43,7 @@ class PageController extends Controller
     public function show(string $id)
     {
         $page = Page::findOrFail($id);
-        return response()->json($page, 200);
+        return response()->json($page->load('sections'), 200);
     }
 
     /**

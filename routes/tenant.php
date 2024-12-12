@@ -14,12 +14,14 @@ use App\Http\Controllers\Tenant\SiteBuilder\PageController;
 use App\Http\Controllers\Tenant\SiteBuilder\PolicyPageController;
 use App\Http\Controllers\Tenant\SiteBuilder\SectionController;
 use App\Http\Controllers\Tenant\SiteBuilder\ThemeCustomizationController;
+use App\Http\Controllers\Tenant\TenantDataController;
 use App\Http\Controllers\Tenant\UserController;
 use App\Http\Controllers\Tenant\WebSettings\BasicInfoController;
 use App\Http\Controllers\Tenant\WebSettings\MaintenanceModeController;
 use App\Http\Controllers\Tenant\WebSettings\SocialMediaController;
 use App\Models\Tenant\PurchasedApp;
 use Illuminate\Support\Facades\Route;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 
 /*
@@ -35,7 +37,6 @@ use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 */
 
 Route::prefix('api')->middleware([
-    'api',
     InitializeTenancyByRequestData::class,
     //    PreventAccessFromCentralDomains::class,
 ])->group(function () {
@@ -94,7 +95,7 @@ Route::prefix('api')->middleware([
 
         //        Sections
         Route::apiResource('sections', SectionController::class);
-        
+
         //    Web Settings
         Route::apiResource('web-settings/basic-info', BasicInfoController::class);
         Route::apiResource('web-settings/social-media', SocialMediaController::class);
@@ -112,6 +113,11 @@ Route::prefix('api')->middleware([
         Route::post('jara-domains/check-availability', [JaraDomainController::class, 'check_availability']);
     });
 
+    Route::middleware([InitializeTenancyByDomainOrSubdomain::class,
+    ])->group(function () {
+        //    Get Website Data
+        Route::get('tenant-data', [TenantDataController::class, 'get_data']);
+    });
 
 });
 

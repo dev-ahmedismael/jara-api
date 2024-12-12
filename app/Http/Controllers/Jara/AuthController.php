@@ -97,15 +97,19 @@ class AuthController extends Controller
                 [
                     'status' => false,
                     'title' => 'الشروط والأحكام',
-                    'content' => ''
+                    'content' => 'اكتب هنا الشروط والأحكام الخاصة بالتعامل بينك وبين عملاؤك.'
                 ], [
                     'status' => false,
                     'title' => 'سياسة الخصوصية',
-                    'content' => ''
+                    'content' => 'اكتب هنا سياسة الخصوصية الخاصة بك.'
                 ], [
                     'status' => false,
                     'title' => 'سياسة الإستبدال والإسترجاع',
-                    'content' => ''
+                    'content' => 'اكتب هنا سياسات الاستبدال والاسترجاع الخاص بك.'
+                ], [
+                    'status' => true,
+                    'title' => 'من نحن',
+                    'content' => 'اكتب هنا عن شركتك او مؤسستك وعرف عملائك من تكون.'
                 ],
             ];
 
