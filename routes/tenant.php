@@ -112,12 +112,5 @@ Route::prefix('api')->middleware([
         //    Jara Domains
         Route::post('jara-domains/check-availability', [JaraDomainController::class, 'check_availability']);
     });
-
-    Route::middleware([InitializeTenancyByDomainOrSubdomain::class,
-    ])->group(function () {
-        //    Get Website Data
-        Route::get('tenant-data', [TenantDataController::class, 'get_data']);
-    });
-
 });
 
