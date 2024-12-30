@@ -38,9 +38,9 @@ class AuthController extends Controller
             // Creating tenant
             $tenant = Tenant::create([
                 'type' => 'consultations',
-                'company_name_ar' => $request->input('company_name_ar'),
-                'company_name_en' => $request->input('company_name_en'),
-                'license_number' => $request->input('license_number'),
+                'company_name_ar' => '',
+                'company_name_en' => '',
+                'license_number' => '',
             ]);
 
             $tenant->domains()->create(['domain' => $request->input('domain')]);
@@ -48,7 +48,6 @@ class AuthController extends Controller
             // Creating a customer
             Customer::create([
                 'name' => $request->input('name'),
-                'job' => $request->input('job'),
                 'phone' => $request->input('phone'),
                 'email' => $request->input('email'),
                 'tenant_id' => $tenant->id,
@@ -69,7 +68,6 @@ class AuthController extends Controller
             // Creating user
             $user = User::create([
                 'name' => $request->input('name'),
-                'job' => $request->input('job'),
                 'phone' => $request->input('phone'),
                 'email' => $request->input('email'),
                 'password' => Hash::make($request->input('password')),

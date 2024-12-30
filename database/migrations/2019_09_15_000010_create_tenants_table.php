@@ -19,8 +19,8 @@ class CreateTenantsTable extends Migration
             $table->string('id')->primary();
 
             $table->string('type');
-            $table->string('company_name_ar');
-            $table->string('company_name_en');
+            $table->string('company_name_ar')->nullable();
+            $table->string('company_name_en')->nullable();
             $table->string('license_number')->nullable();
 
             $table->timestamps();

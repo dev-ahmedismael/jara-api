@@ -23,7 +23,6 @@ class BasicInfoRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'job' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'max:255', 'email'],
         ];

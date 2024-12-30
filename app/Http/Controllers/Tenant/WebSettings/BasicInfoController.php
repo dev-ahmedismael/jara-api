@@ -15,7 +15,10 @@ class BasicInfoController extends Controller
     public function index()
     {
         $basic_info = BasicInfo::latest()->first();
-        return response()->json(['data' => $basic_info->load('media')], 200);
+        if ($basic_info) {
+            $basic_info->load('media');
+        }
+        return response()->json(['data' => $basic_info], 200);
     }
 
 

@@ -24,12 +24,12 @@ class RegisterRequest extends FormRequest
         return [
             'domain' => 'required | string | max:255',
             'name' => 'required | string | max:255',
-            'job' => 'required | string | max:255',
-            'phone' => 'required | string | max:10',
+            'job' => 'nullable | string | max:255',
+            'phone' => 'required | string | max:20',
             'email' => 'required | string | max:255 | email',
             'password' => 'required | string | max:255',
-            'company_name_ar' => 'required | string | max:255',
-            'company_name_en' => 'required | string | max:255',
+            'company_name_ar' => 'nullable | string | max:255',
+            'company_name_en' => 'nullable | string | max:255',
             'license_number' => 'nullable | string | max:255',
             'license_document' => 'nullable | file',
         ];
