@@ -1,8 +1,14 @@
 <?php
 
 use App\Http\Controllers\Central\App\AppController;
+use App\Http\Controllers\Central\Article\ArticleController;
 use App\Http\Controllers\Central\Authentication\AuthController;
+use App\Http\Controllers\Central\Promocode\PromocodeController;
+use App\Http\Controllers\Central\Setting\SettingController;
+use App\Http\Controllers\Central\Stats\StatsController;
+use App\Http\Controllers\Central\Tenant\TenantController;
 use App\Http\Controllers\Central\Theme\ThemeController;
+use App\Http\Controllers\Central\Transaction\TransactionController;
 use App\Http\Controllers\Tenant\Consultation\ConsultationController;
 use App\Http\Controllers\Tenant\Customer\CustomerController;
 use App\Http\Controllers\Tenant\Order\ChatMessageController;
@@ -12,13 +18,25 @@ use App\Http\Controllers\Tenant\TenantWebsite\TenantWebsiteController;
 use App\Http\Middleware\IdentifyTenant;
 use Illuminate\Support\Facades\Route;
 
+
+    Route::post('central/login', [AuthController::class, 'login']);
+    Route::post('central/logout', [AuthController::class, 'logout']);
+    Route::get('stats', [StatsController::class, 'index']);
+    Route::apiResource('tenants', TenantController::class );
+
+    Route::apiResource('settings', SettingController::class);
+    Route::apiResource('transactions', TransactionController::class);
+    Route::apiResource('apps', AppController::class);
+    Route::apiResource('themes', ThemeController::class);
+    Route::apiResource('central/articles', ArticleController::class);
+    Route::post('central/articles/{id}', [ArticleController::class, 'update']);
+    Route::apiResource('central/promocodes', PromocodeController::class);
+
+    // TENANT WEBSITE ROUTES
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::apiResource('apps', AppController::class);
-    Route::apiResource('themes', ThemeController::class);
 
-    // TENANT WEBSITE ROUTES
     Route::middleware([IdentifyTenant::class])->group(function () {
         // Tenant Website Data
         Route::get('tenant-website', [TenantWebsiteController::class, 'index']);
@@ -29,6 +47,7 @@ use Illuminate\Support\Facades\Route;
 
         // Service
         Route::get('consultations/show-public/{id}', [ConsultationController::class, 'show_public']);
+
 
 
     });

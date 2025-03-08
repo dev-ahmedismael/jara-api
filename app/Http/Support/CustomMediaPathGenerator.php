@@ -2,7 +2,6 @@
 namespace App\Http\Support;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Stancl\Tenancy\Facades\Tenancy;
 use Spatie\MediaLibrary\Support\PathGenerator\DefaultPathGenerator;
 
 class CustomMediaPathGenerator extends DefaultPathGenerator
@@ -15,7 +14,8 @@ class CustomMediaPathGenerator extends DefaultPathGenerator
         $tenantId = $this->getTenantId();
         $collectionName = $media->collection_name;
 
-        return $tenantId . '/' . $collectionName . '/';
+        // Ensure the filename is unique by appending media ID
+        return "{$tenantId}/{$collectionName}/{$media->id}/";
     }
 
     /**
@@ -26,7 +26,7 @@ class CustomMediaPathGenerator extends DefaultPathGenerator
         $tenantId = $this->getTenantId();
         $collectionName = $media->collection_name;
 
-        return $tenantId . '/' . $collectionName . '/conversions/';
+        return "{$tenantId}/{$collectionName}/{$media->id}/conversions/";
     }
 
     /**
@@ -37,7 +37,7 @@ class CustomMediaPathGenerator extends DefaultPathGenerator
         $tenantId = $this->getTenantId();
         $collectionName = $media->collection_name;
 
-        return $tenantId . '/' . $collectionName . '/responsive-images/';
+        return "{$tenantId}/{$collectionName}/{$media->id}/responsive-images/";
     }
 
     /**

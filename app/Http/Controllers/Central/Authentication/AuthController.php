@@ -10,6 +10,7 @@ use App\Models\Central\Tenant\Tenant;
 use App\Models\Tenant\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Stancl\Tenancy\Database\Models\Domain;
 
@@ -28,21 +29,31 @@ class AuthController extends Controller
                 'email' => $request->input('email'),
             ]);
 
+            if ($request->hasFile('license_document')) {
+                $customer->addMedia($request->file('license_document'))
+                    ->toMediaCollection('license_documents');
+            }
+
             // Create tenant
             $tenant = Tenant::create([
+                'customer_name' => $request->input('name'),
+                'customer_email' => $request->input('email'),
+                'customer_phone' => $request->input('phone'),
                 'website_type' => $request->input('website_type'),
                 'license_type' => $request->input('license_type'),
                 'license_name' => $request->input('license_name'),
                 'license_number' => $request->input('license_number'),
+                'paid_amount' => 0,
+                'due_amount' => 0,
+                'due_date' => null,
+                'bank_account_number' => null,
+                'is_active' => false,
             ]);
 
             $customer->tenants()->attach($tenant->id, ['role' => 'customer']);
 
+
             tenancy()->initialize($tenant->id);
-//                 if ($request->hasFile('license_document')) {
-//                    $tenant->addMedia($request->file('license_document'))
-//                        ->toMediaCollection('license_documents');
-//                }
 
                 $user = User::create([
                     'name' => $request->input('name'),
@@ -52,6 +63,7 @@ class AuthController extends Controller
                 ]);
 
             tenancy()->end();
+
             return response()->json([
                 'message' => 'تم إنشاء حسابك بنجاح.',
                 'tenant_id' => $tenant->id
@@ -130,8 +142,8 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        //        Auth::logout();
-        //        $cookie = Cookie::forget('laravel_session');
+//                Auth::logout();
+//                $cookie = Cookie::forget('laravel_session');
         return response()->json(['message' => 'تم تسجيل الخروج بنجاح.']);
     }
 }

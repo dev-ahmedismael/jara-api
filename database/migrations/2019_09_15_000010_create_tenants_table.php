@@ -17,11 +17,18 @@ class CreateTenantsTable extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('company_name')->nullable();
+            $table->string('customer_name');
+            $table->string('customer_email');
+            $table->string('customer_phone');
             $table->string('website_type');
             $table->string('license_type');
             $table->string('license_name');
             $table->string('license_number');
+            $table->decimal('paid_amount', 8, 2)->default(0);
+            $table->decimal('due_amount', 8, 2)->default(0);
+            $table->date('due_date')->nullable();
+            $table->string('bank_account_number')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
             $table->json('data')->nullable();
         });

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Central\Article\ArticleController;
 use App\Http\Controllers\Tenant\App\AppController;
-use App\Http\Controllers\Tenant\Article\ArticleController;
 use App\Http\Controllers\Tenant\Consultation\ConsultationController;
 use App\Http\Controllers\Tenant\Customer\CustomerController;
 use App\Http\Controllers\Tenant\Order\ChatMessageController;
@@ -12,7 +12,6 @@ use App\Http\Controllers\Tenant\Order\OrderController;
 use App\Http\Controllers\Tenant\Promocode\PromocodeController;
 use App\Http\Controllers\Tenant\RolePermission\RolePermissionController;
 use App\Http\Controllers\Tenant\Stats\TenantStatsController;
-use App\Http\Controllers\Tenant\TenantWebsite\TenantWebsiteController;
 use App\Http\Controllers\Tenant\Theme\ThemeController;
 use App\Http\Controllers\Tenant\User\UserController;
 use App\Http\Controllers\Tenant\WebsiteSettings\BasicInfoController;
@@ -21,7 +20,6 @@ use App\Http\Controllers\Tenant\WebsiteSettings\MaintenanceModeController;
 use App\Http\Controllers\Tenant\WebsiteSettings\PageController;
 use App\Http\Controllers\Tenant\WebsiteSettings\SocialMediaUrlController;
 use Illuminate\Support\Facades\Route;
-use Stancl\Tenancy\Middleware\InitializeTenancyByPath;
 use Stancl\Tenancy\Middleware\InitializeTenancyByRequestData;
 
 /*

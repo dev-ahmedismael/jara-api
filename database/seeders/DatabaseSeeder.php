@@ -3,9 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\Central\App\App;
+use App\Models\Central\Promocode\Promocode;
+use App\Models\Central\Setting\Setting;
 use App\Models\Central\Theme\Theme;
 use App\Models\Central\User\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,6 +20,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $user = [
+            'name' => 'م. هتان عاشور',
+            'email' => 'dr.hattan@gmail.com',
+            'password' => Hash::make('123456'),
+        ];
+
+        User::create($user);
+
+        $promocode = [
+            'code' => 'free-jara',
+            'discount_type' => 'نسبة مئوية',
+            'discount_amount' => '100',
+            'start_date' => now()->format('Y-m-d'),
+            'end_date' => now()->addYear()->format('Y-m-d'),
+        ];
+
+        Promocode::create($promocode);
+
+        $setting = [
+            'price' => 2300,
+            'email' => 'info@jara.site',
+            'customer_service_email' => 'customer_support@jara.site',
+            'phone' => '00966544542828'
+        ];
+
+        Setting::create($setting);
+
         $apps = [
             ['title' => 'تطبيق Jara QR Code', 'description' => 'عند تثبيتك لتطبيق Jara QR Code سيكون بإمكانك توليد رموز الإستجابة السريعة بأشكال مختلفة وجذابة من تصميمك تناسب الهوية البصرية الخاصة بشركتك لتستخدمها مع عملائك.',
                 'type' => 'qr_code', 'auth_url' =>

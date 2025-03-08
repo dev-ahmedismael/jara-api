@@ -11,7 +11,6 @@ use App\Models\Tenant\Order\ZoomMeeting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Stancl\Tenancy\Database\Models\Domain;
 
 class OrderController extends Controller
 {
@@ -58,6 +57,16 @@ class OrderController extends Controller
             'start_time' => $consultation['start_time'],
             'is_active' => true,
         ]);
+
+        $tenant = tenant();
+
+        if(!$tenant->due_date) {
+            $tenant->due_date = now()->addDays(7);
+        }
+
+        $tenant->due_amount = ($tenant->due_amount ?? 0) + $order['paid_amount'];
+
+        $tenant->save();
 
         if($order->type === 'إستشارة نصية') {
             Chatroom::create([
