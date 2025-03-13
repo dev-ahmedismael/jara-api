@@ -3,6 +3,7 @@
 use App\Http\Controllers\Central\App\AppController;
 use App\Http\Controllers\Central\Article\ArticleController;
 use App\Http\Controllers\Central\Authentication\AuthController;
+use App\Http\Controllers\Central\Authentication\CentralAuthController;
 use App\Http\Controllers\Central\Promocode\PromocodeController;
 use App\Http\Controllers\Central\Setting\SettingController;
 use App\Http\Controllers\Central\Stats\StatsController;
@@ -19,8 +20,8 @@ use App\Http\Middleware\IdentifyTenant;
 use Illuminate\Support\Facades\Route;
 
 
-    Route::post('central/login', [AuthController::class, 'login']);
-    Route::post('central/logout', [AuthController::class, 'logout']);
+    Route::post('central/login', [CentralAuthController::class, 'login']);
+    Route::post('central/logout', [CentralAuthController::class, 'logout']);
     Route::get('stats', [StatsController::class, 'index']);
     Route::apiResource('tenants', TenantController::class );
 

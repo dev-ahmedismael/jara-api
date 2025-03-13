@@ -14,7 +14,7 @@ class TransactionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $transactions = Transaction::filter($request)->latest()->paginate($request->query('per_page', 10));
         return response()->json(['data' => $transactions], 200);
